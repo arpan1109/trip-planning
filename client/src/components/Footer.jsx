@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Compass, Github, Twitter, Instagram } from "lucide-react";
+import { Compass} from "lucide-react";
+// import { createSvgIcon, twitter } from "
+
 
 const Footer = () => {
   return (
@@ -19,9 +21,9 @@ const Footer = () => {
             Stop planning and start exploring. Generate hyper-personalized itineraries, manage your packing lists, and map out your next adventure in seconds with AI intelligence.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="text-white/30 hover:text-orange-500 transition-colors cursor-pointer"><Twitter size={20} /></a>
-            <a href="#" className="text-white/30 hover:text-orange-500 transition-colors cursor-pointer"><Instagram size={20} /></a>
-            <a href="#" className="text-white/30 hover:text-orange-500 transition-colors cursor-pointer"><Github size={20} /></a>
+            <a href="#" className="text-white hover:text-orange-500 transition-colors cursor-pointer"><X size={20} /></a>
+            <a href="#" className="text-white hover:text-orange-500 transition-colors cursor-pointer"><Instagram size={20} /></a>
+            <a href="#" className="text-white hover:text-orange-500 transition-colors cursor-pointer"><Github size={20} /></a>
           </div>
         </div>
 
@@ -34,16 +36,6 @@ const Footer = () => {
             <li><Link to="/my-trips" className="text-white/50 hover:text-orange-500 text-[10px] md:text-xs font-bold uppercase tracking-wider transition-colors">My Trips</Link></li>
           </ul>
         </div>
-
-        {/* LEGAL / SUPPORT */}
-        <div>
-          <h4 className="text-white font-black uppercase tracking-widest text-xs mb-6">Support</h4>
-          <ul className="space-y-4">
-            <li><Link to="#" className="text-white/50 hover:text-orange-500 text-[10px] md:text-xs font-bold uppercase tracking-wider transition-colors">Contact Us</Link></li>
-            <li><Link to="#" className="text-white/50 hover:text-orange-500 text-[10px] md:text-xs font-bold uppercase tracking-wider transition-colors">Privacy Policy</Link></li>
-            <li><Link to="#" className="text-white/50 hover:text-orange-500 text-[10px] md:text-xs font-bold uppercase tracking-wider transition-colors">Terms of Service</Link></li>
-          </ul>
-        </div>
       </div>
 
       {/* BOTTOM BAR */}
@@ -51,8 +43,8 @@ const Footer = () => {
         <p className="text-white/20 text-[10px] font-bold uppercase tracking-widest text-center md:text-left">
           © {new Date().getFullYear()} Journeys. All rights reserved.
         </p>
-        <p className="text-white/20 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5">
-          Built with <span className="text-orange-500 text-sm">♥</span> for Explorers
+        <p className="text-white/70 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5">
+          Built with <span className="text-orange-500 text-sm">♥</span> by Arpan 
         </p>
       </div>
     </footer>
