@@ -1,0 +1,26 @@
+/* index.css */
+/* Import Syne in weights 400 through 800 to get the true shape */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Syne:wght@200;300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-editorial: 'Syne', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+}
+
+@layer base {
+  html, body, #root {
+    @apply bg-[#0f0f0f] text-white antialiased;
+    font-family: var(--font-sans);
+    margin: 0;
+    padding: 0;
+  }
+
+  .font-editorial {
+    font-family: var(--font-editorial);
+    /* Remove letter-spacing tweaks here to let the natural font shine */
+  }
+}
