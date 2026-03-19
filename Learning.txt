@@ -1,3 +1,0 @@
-using the multer cloudinary for cloud storage of profile images.
-
-While reseting the pswd just reseting it will not make login again since the older pswd is in hashed form so while comparing the new pswd with it . This will not match thus we can't login simply,
