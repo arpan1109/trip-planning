@@ -328,13 +328,26 @@ import AuthPage from "./pages/AuthPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
-
+import Footer from "./components/Footer";
 // 1. Stable Navbar Helper
 const ConditionalNavbar = () => {
   const location = useLocation();
   const isTripPage = location.pathname.includes("/trip/");
   const isSettingsPage = location.pathname === "/settings";
+
   return isTripPage || isSettingsPage ? <Navbar /> : null;
+  
+};
+
+const ConditionalFooter = () => {
+  const location = useLocation();
+  const sidebarRoutes = ["/dashboard", "/my-trips", "/journeys", "/settings", "/profile"];
+  
+  const isTripRoute = location.pathname.startsWith("/trip/");
+  
+  const hasSidebar = sidebarRoutes.includes(location.pathname) || isTripRoute;
+  
+  return !hasSidebar ? <Footer /> : null;
 };
 
 // --- WRAPPED CONTENT COMPONENT ---
@@ -506,6 +519,7 @@ function AppContent() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
+      <ConditionalFooter/>
       <Toaster position="top-center" theme="dark" richColors />
     </Router>
   );
