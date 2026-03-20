@@ -262,7 +262,7 @@ const ItinerarySection = ({ tripId, itinerary = [], onTripUpdated }) => {
 
   const handleAutoGenerate = async () => {
     setIsGenerating(true);
-    toast.info("AI is crafting your itinerary...");
+    toast.info("Planning your itinerary...");
 
     try {
       const updatedTrip = await generateTripItinerary(tripId);
