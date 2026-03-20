@@ -38,7 +38,7 @@ const Navbar = () => {
       >
         {/* LOGO SECTION: Icon-only on mobile to save space */}
         <div
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/journeys")}
           className="flex items-center gap-2 bg-orange-500 p-2.5 md:px-5 md:py-2.5 rounded-full cursor-pointer hover:bg-white transition-all duration-500 group"
         >
           <Compass className="text-black size-5 md:size-5 group-hover:rotate-45 transition-transform" />
