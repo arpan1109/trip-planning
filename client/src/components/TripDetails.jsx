@@ -398,9 +398,13 @@ const ItinerarySection = ({ tripId, itinerary = [], onTripUpdated }) => {
     </div>
   );
 };
+
 const StatsCards = ({ trip }) => {
   const navigate = useNavigate();
-  // 1. Logic moved here to be accessible to the 'cards' array
+  
+  // 1. Grab the user's unit preference from local storage (default to metric)
+  const userUnits = localStorage.getItem("journeys_units") || "metric";
+
   const getCountdownData = (startDate, endDate) => {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
@@ -424,13 +428,29 @@ const StatsCards = ({ trip }) => {
       return { value: `${diffDays} Days`, sub: "Until Departure" };
     }
   };
+
   const countdown = getCountdownData(trip.startDate, trip.endDate);
+  
+  // 2. Weather & Unit Conversion Logic
   const weatherTemp = trip.destinationInfo?.currentTemp;
   const weatherSummary = trip.destinationInfo?.weatherSummary || "Moderate";
+  
+  let formattedTemp = "N/A";
+  if (weatherTemp !== undefined) {
+    if (userUnits === "imperial") {
+      // Convert Celsius to Fahrenheit
+      const tempF = Math.round((weatherTemp * 9) / 5 + 32);
+      formattedTemp = `${tempF}°F`;
+    } else {
+      // Keep as Celsius
+      formattedTemp = `${Math.round(weatherTemp)}°C`;
+    }
+  }
+
   const cards = [
     {
       label: "Weather",
-      value: weatherTemp !== undefined ? `${Math.round(weatherTemp)}°C` : "N/A",
+      value: formattedTemp, // 3. Use the converted temperature here
       sub: weatherSummary,
       icon: SunIcon,
     },
@@ -495,7 +515,6 @@ const StatsCards = ({ trip }) => {
   );
 };
 
-// --- MAIN DASHBOARD ---
 const TripDetails = ({ trip, onTripUpdated, onTripDeleted }) => {
   const navigate = useNavigate();
   const [newItemName, setNewItemName] = useState("");
