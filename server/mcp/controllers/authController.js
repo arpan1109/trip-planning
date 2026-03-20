@@ -5,7 +5,7 @@
 
 // RECTIFIED: Import the default User model
 import User from '../models/User.js';
-import jwt from 'jsonwebtoken'; 
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { sendVerificationEmail } from '../logic/emailService.js';
 
@@ -38,20 +38,20 @@ export async function signup(req, res) {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
         // Set HttpOnly Cookie
-        res.cookie('token', token, {
+        res.cookie("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            secure: true, // Required for Vercel (HTTPS)
+            sameSite: "none", // Required for cross-domain cookies
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
         // Send Email
         await sendVerificationEmail(user.email, verificationToken);
 
-        res.status(201).json({ 
-            success: true, 
+        res.status(201).json({
+            success: true,
             message: "User created. Verification email sent!",
-            user: { id: user._id, name: user.name, email: user.email, isVerified: user.isVerified } 
+            user: { id: user._id, name: user.name, email: user.email, isVerified: user.isVerified }
         });
     } catch (error) {
         console.error("Signup Error:", error);
@@ -63,7 +63,7 @@ export async function signup(req, res) {
 export async function login(req, res) {
     try {
         const { email, password } = req.body;
-        
+
         // RECTIFIED: Call findOne on the User model
         const user = await User.findOne({ email });
 
@@ -74,16 +74,16 @@ export async function login(req, res) {
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-        res.cookie('token', token, {
+        res.cookie("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            secure: true, // Required for Vercel (HTTPS)
+            sameSite: "none", // Required for cross-domain cookies
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
-        res.status(200).json({ 
-            success: true, 
-            user: { id: user._id, name: user.name, email: user.email, isVerified: user.isVerified } 
+        res.status(200).json({
+            success: true,
+            user: { id: user._id, name: user.name, email: user.email, isVerified: user.isVerified }
         });
     } catch (error) {
         res.status(500).json({ success: false, message: "Server Error" });
@@ -93,7 +93,7 @@ export async function login(req, res) {
 // --- 3. VERIFY EMAIL (Upgraded with Diagnostics) ---
 export async function verifyEmail(req, res) {
     const { code } = req.body;
-    
+
     try {
         // 1. Diagnostic Logging: See exactly what the frontend sent
         console.log("--- EMAIL VERIFICATION INITIATED ---");
@@ -102,7 +102,7 @@ export async function verifyEmail(req, res) {
 
         // 2. Data Sanitization: Force to string and strip invisible spaces
         const cleanCode = String(code).trim();
-        
+
         // 3. Robust Database Query: Use 'new Date()' for safer Mongoose casting
         const user = await User.findOne({
             verificationToken: cleanCode,
