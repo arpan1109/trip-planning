@@ -12,6 +12,7 @@ import authRoutes from './routes/auth.js';
 connectDB();
 
 const app = express();
+app.set("trust proxy", 1)
 
 // --- CRITICAL UPDATE: DYNAMIC CORS ---
 // This allows localhost during development, but uses your live Vercel frontend URL in production
