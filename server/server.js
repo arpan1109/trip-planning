@@ -17,7 +17,7 @@ const app = express();
 // This allows localhost during development, but uses your live Vercel frontend URL in production
 const allowedOrigins = [
   "http://localhost:5173", 
-  process.env.CLIENT_URL // You will add this to Vercel later!
+  "https://journeys-client.vercel.app" // Add this exact line! (No trailing slash)
 ];
 
 app.use(cors({
